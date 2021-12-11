@@ -1,0 +1,35 @@
+<div class="container">
+  <div class="row d-flex justify-content-center">
+    <div class="col-xl-4 col-lg-6 col-md-6 col-sm-10 mt-5">
+      <div class="card text-center mt-5 shadow-5">
+        <div class="card-header">LOGIN</div>
+        <div class="card-body">
+          <form [formGroup]="validationForm" (submit)="login(validationForm)" >
+            <div class="row">
+              <div class="col-md-12 mt-4">
+                <mdb-form-control>
+                  <input mdbValidate mdbInput type="text" id="form1" class="form-control" formControlName="email" required/>
+                  <label mdbLabel class="form-label" for="form1">Email</label>
+                  <mdb-error *ngIf="email?.invalid && (email?.dirty || email?.touched)">El campo email es requerido o ingreselo correctamente</mdb-error>
+                  <mdb-success *ngIf="email?.valid && (email?.dirty || email?.touched)"></mdb-success>
+                </mdb-form-control>
+              </div>
+
+              <div class="col-md-12 mt-5">
+                <mdb-form-control>
+                  <input  mdbValidate  mdbInput  type="password"  id="form2"  class="form-control"  formControlName="password"  required/>
+                  <label mdbLabel class="form-label" for="form2">Password</label>
+                  <mdb-error *ngIf="password?.invalid && (password?.dirty || password?.touched)">El campo password es requerido</mdb-error>
+                  <mdb-success *ngIf="password?.valid && (password?.dirty || password?.touched)" ></mdb-success >
+                </mdb-form-control>
+              </div>
+              <div>
+                <button class="text-capitalize btn btn-dark mt-5" type="submit">ingresar</button>
+              </div>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
