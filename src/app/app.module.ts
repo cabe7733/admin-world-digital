@@ -1,3 +1,4 @@
+import { APP_ROUTING } from './app-routing.routes';
 import { ComponentsModule } from './components/components.module';
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
@@ -73,7 +74,8 @@ export const auth = getAuth(app)
     MdbValidationModule,
     ReactiveFormsModule,
     FormsModule,
-    ComponentsModule
+    ComponentsModule,
+    APP_ROUTING
   ],
   providers: [
     CategoryService,

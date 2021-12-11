@@ -1,3 +1,4 @@
+import { COMPONENT_ROUTING } from './component-routing.routes';
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { ComponentsComponent } from './components.component';
@@ -19,7 +20,8 @@ import { FooterComponent } from '../shared/footer/footer.component';
     FooterComponent,
   ],
   imports: [
-    CommonModule
+    CommonModule,
+    COMPONENT_ROUTING
   ]
 })
 export class ComponentsModule { }
