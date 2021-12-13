@@ -7,7 +7,7 @@ export const environment = {
     storageBucket: "worlddigitaleya.appspot.com",
     messagingSenderId: "523746483287",
     appId: "1:523746483287:web:9976963060caa3236a1712",
-    measurementId: "${config.measurementId}"
+    measurementId: "G-85EHB845ZB"
   }
 };
 /* firebase deploy --only hosting:admin-worlddigitaleya */

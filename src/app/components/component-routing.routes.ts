@@ -1,15 +1,22 @@
+import { AuthGuard } from './../guards/auth.guard';
+import { CategoryComponent } from './category/category.component';
 import { HomeComponent } from './home/home.component';
 import { Routes, RouterModule } from '@angular/router';
 import { NgModule } from '@angular/core';
 import { PostBlogComponent } from './post-blog/post-blog.component';
+import { ComponentsComponent } from './components.component';
 
 
 const routes: Routes = [
-   { path: 'post/:title', component: PostBlogComponent},
-   { path: 'inicio', component: HomeComponent},
-   { path: '', redirectTo: '/inicio', pathMatch: 'full' },
-   { path: '**', component: HomeComponent}
-
+ {
+    path:'component', component: ComponentsComponent, canActivate:[AuthGuard],
+    children: [
+       { path: 'postBlog', component: PostBlogComponent},
+       { path: 'category', component: CategoryComponent},
+       { path: 'home', component: HomeComponent},
+       { path: '',   redirectTo: '/component/home', pathMatch: 'full' }
+    ]
+  }
 ];
 // tslint:disable-next-line: variable-name
 export const COMPONENT_ROUTING = RouterModule.forRoot(routes);
