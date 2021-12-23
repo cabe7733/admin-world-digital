@@ -42,21 +42,20 @@ export class AuthService {
 
   async logged():Promise<boolean> {
     let login;
-   await onAuthStateChanged(auth, (user) => {
+    await onAuthStateChanged(auth, (user) => {
       if (user) {
         login = true;
       } else {
         login = false;
       }
-      console.log(login);
 
     });
     return login;
   }
 
   logout(){
-    signOut(auth).then(() => {
-      // Sign-out successful.
+     signOut(auth).then((data) => {
+        console.log(data);
     }).catch((error) => {
       console.log(error);
     });

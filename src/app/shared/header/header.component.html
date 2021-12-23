@@ -1,1 +1,62 @@
-<p>header works!</p>
+<nav class="navbar navbar-expand-lg navbar-dark fixed-top scrolling-navbar">
+  <!-- Container wrapper -->
+  <div class="container-fluid">
+    <a class="navbar-brand text-uppercase">
+      <img src="../../../assets/img/logo-solo.png" height="37" alt="" loading="lazy" class="me-3"/>
+      world digital
+    </a>
+    <button class="navbar-toggler" type="button" (click)="basicNavbar.toggle()" aria-expanded="false" aria-label="Toggle navigation">
+      <i class="fas fa-bars"></i>
+    </button>
+
+    <!-- Collapsible wrapper -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent" mdbCollapse #basicNavbar="mdbCollapse">
+      <!-- Left links -->
+      <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+        <li class="nav-item" routerLinkActive="active">
+          <a class="nav-link" routerLink="inicio">Inicio</a>
+        </li>
+        <div mdbDropdown class="dropdown">
+          <a class="nav-link dropdown-toggle" routerLinkActive="active" role="button" id="dropdownMenuLink" mdbDropdownToggle aria-expanded="false">
+            Temas
+          </a>
+          <ul mdbDropdownMenu class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+            <li><a class="dropdown-item">Action</a></li>
+          </ul>
+        </div>
+        <li class="nav-item" routerLinkActive="active">
+          <a class="nav-link"  routerLink="nosotros">Nosotros</a>
+        </li>
+        <li class="nav-item" routerLinkActive="active">
+          <a class="nav-link"  routerLink="contact">Contactanos</a>
+        </li>
+      </ul>
+      <!-- Left links -->
+
+      <!-- Search form -->
+      <form class="d-flex input-group w-auto">
+        <input type="search" class="form-control" placeholder="Buscar" aria-label="Search"/>
+        <button class="btn btn-outline-light" type="button">
+          Buscar
+        </button>
+      </form>
+    </div>
+    <!-- Collapsible wrapper -->
+  </div>
+  <!-- Container wrapper -->
+</nav>
+<!-- Navbar -->
+
+
+
+<div class="view" style="background-image: url('../../../assets/img/banner.jpg'); background-repeat: no-repeat; background-size: cover; background-position: center center;">
+  <div class="mask d-flex justify-content-center" style="background-color: rgba(0, 0, 0, 0.6);">
+    <div class="container">
+      <div class="row justify-content-center mt-4">
+        <div class="col-sm-3 col-md-6 col-xl-3  wow fadeInRight mt-5" data-wow-delay="0.3s">
+          <img src="../../../assets/img/Digital world e y a Logotipos.png" alt="" class="img-fluid">
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,1 +1,16 @@
 
+.body{
+  background-image: url('https://images.pexels.com/photos/5926373/pexels-photo-5926373.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500');
+  background-repeat: no-repeat;
+  background-size: cover;
+  height: 100vh;
+}
+
+@media (max-width: 900px){
+  .body{
+    background-image: url('https://images.pexels.com/photos/5926373/pexels-photo-5926373.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500');
+    background-repeat: no-repeat;
+    background-size: cover;
+    height: 94.2vh;
+  }
+}

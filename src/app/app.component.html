@@ -1,6 +1,7 @@
-<div class="container">
-  <div>
-    <h1 class="text-uppercase text-center mt-5 text-light">administrador de contenido</h1>
+<div  [ngClass]="{'body': _url=='/login'}" >
+  <div *ngIf="_url=='/login'">
+    <br><br>
+    <h1 class="text-uppercase text-center text-light">administrador de contenido</h1>
     <h5 class="text-uppercase text-center text-light fw-light">blog World Digital E y A</h5>
   </div>
   <router-outlet></router-outlet>

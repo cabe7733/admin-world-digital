@@ -7,6 +7,7 @@ import { CategoryComponent } from './category/category.component';
 import { PostBlogComponent } from './post-blog/post-blog.component';
 import { HeaderComponent } from '../shared/header/header.component';
 import { FooterComponent } from '../shared/footer/footer.component';
+import { MdbCollapseModule } from 'mdb-angular-ui-kit/collapse';
 
 
 
@@ -21,6 +22,7 @@ import { FooterComponent } from '../shared/footer/footer.component';
   ],
   imports: [
     CommonModule,
+    MdbCollapseModule,
     COMPONENT_ROUTING
   ]
 })
