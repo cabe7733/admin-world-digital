@@ -5,6 +5,7 @@ import { Routes, RouterModule } from '@angular/router';
 import { NgModule } from '@angular/core';
 import { PostBlogComponent } from './post-blog/post-blog.component';
 import { ComponentsComponent } from './components.component';
+import { SubCategoryComponent } from './sub-category/sub-category.component';
 
 
 const routes: Routes = [
@@ -13,6 +14,7 @@ const routes: Routes = [
     children: [
        { path: 'postBlog', component: PostBlogComponent},
        { path: 'category', component: CategoryComponent},
+       { path: 'sub-category', component: SubCategoryComponent},
        { path: 'home', component: HomeComponent},
        { path: '',   redirectTo: '/component/home', pathMatch: 'full' }
     ]

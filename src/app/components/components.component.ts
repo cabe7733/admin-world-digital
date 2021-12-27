@@ -11,8 +11,8 @@ export class ComponentsComponent implements OnInit {
   constructor(private services:AuthService) { }
 
   ngOnInit(): void {
-    this.services.getUsusario().then(result=>{
-      console.log(result);
+    this.services.getUsusario().then(user=>{
+      console.log(user);
     })
   }
 

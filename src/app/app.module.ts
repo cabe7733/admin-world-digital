@@ -10,7 +10,6 @@ import { AppComponent } from './app.component';
 import { MdbAccordionModule } from 'mdb-angular-ui-kit/accordion';
 import { MdbCarouselModule } from 'mdb-angular-ui-kit/carousel';
 import { MdbCheckboxModule } from 'mdb-angular-ui-kit/checkbox';
-import { MdbCollapseModule } from 'mdb-angular-ui-kit/collapse';
 import { MdbDropdownModule } from 'mdb-angular-ui-kit/dropdown';
 import { MdbFormsModule } from 'mdb-angular-ui-kit/forms';
 import { MdbModalModule } from 'mdb-angular-ui-kit/modal';
@@ -41,6 +40,7 @@ import { getFirestore } from "firebase/firestore"
 import { getAuth } from "firebase/auth";
 
 import { environment } from 'src/environments/environment.prod';
+import { EditPostComponent } from './modals/edit-post/edit-post.component';
 
 
 /* FIREBASE CONFIG */
@@ -53,6 +53,7 @@ export const auth = getAuth(app)
   declarations: [
     AppComponent,
     LoginComponent,
+    EditPostComponent,
   ],
   imports: [
     BrowserModule,
@@ -60,7 +61,6 @@ export const auth = getAuth(app)
     MdbAccordionModule,
     MdbCarouselModule,
     MdbCheckboxModule,
-    MdbCollapseModule,
     MdbDropdownModule,
     MdbFormsModule,
     MdbModalModule,

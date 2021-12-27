@@ -14,7 +14,6 @@ export class AuthService {
       let datalogin;
 
       await signInWithEmailAndPassword(auth, email, password).then((userCredential) => {
-          console.log(userCredential);
           datalogin = true;
       }).catch((error) => {
           const errorCode = error.code;
@@ -23,39 +22,20 @@ export class AuthService {
       });
       console.log(datalogin);
 
-
       return datalogin;
   }
 
   async getUsusario(){
     let dataUser;
     await onAuthStateChanged(auth, (user) => {
-      if (user) {
-        const uid = user.uid;
-        dataUser = user;
-      } else {
-        dataUser = undefined;
-      }
+      dataUser = user;
     });
     return dataUser;
   }
 
-  async logged():Promise<boolean> {
-    let login;
-    await onAuthStateChanged(auth, (user) => {
-      if (user) {
-        login = true;
-      } else {
-        login = false;
-      }
-
-    });
-    return login;
-  }
-
   logout(){
      signOut(auth).then((data) => {
-        console.log(data);
+        //
     }).catch((error) => {
       console.log(error);
     });
