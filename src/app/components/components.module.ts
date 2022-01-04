@@ -27,6 +27,8 @@ import { MdbCarouselModule } from 'mdb-angular-ui-kit/carousel';
 import { MdbAccordionModule } from 'mdb-angular-ui-kit/accordion';
 import { SubCategoryComponent } from './sub-category/sub-category.component';
 import { MaterialModule } from '../material.module';
+import { CreatePostComponent } from './create-post/create-post.component';
+import { ListPostComponent } from './list-post/list-post.component';
 
 
 
@@ -39,6 +41,8 @@ import { MaterialModule } from '../material.module';
     HeaderComponent,
     FooterComponent,
     SubCategoryComponent,
+    CreatePostComponent,
+    ListPostComponent,
   ],
   imports: [
     CommonModule,

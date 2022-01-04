@@ -43,3 +43,9 @@ $mdb-angular-ui-kit-free-theme: mat.define-light-theme((
 
 html, body { height: 100%; }
 body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+
+.mat-tab-body-content {
+  height: 100%;
+  overflow: hidden !important;
+}
+

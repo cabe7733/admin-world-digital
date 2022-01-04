@@ -1,46 +1,121 @@
+<div>
+  <h2 class="text-center text-uppercase">categoria</h2>
+  <hr>
+</div>
 <div class="container">
-  <form [formGroup]="validationForm">
+  <h4>Crear Categoria</h4>
+  <form [formGroup]="validationForm" (ngSubmit)="addCategory(validationForm)" >
     <div class="row">
-      <div class="col-md-6">
+      <div class="col-md-4 mt-3">
         <mdb-form-control>
-          <input mdbValidate mdbInput type="text" id="form1" class="form-control" formControlName="firstName" required/>
-          <label mdbLabel class="form-label" for="form1">First name</label>
-          <mdb-error *ngIf=" firstName?.invalid && (firstName?.dirty || firstName?.touched) ">First name is required</mdb-error>
-          <mdb-success *ngIf="firstName?.valid && (firstName?.dirty || firstName?.touched)">Looks good!</mdb-success>
+          <input mdbValidate mdbInput type="text" id="form1" class="form-control" formControlName="nameCategory" required/>
+          <label mdbLabel class="form-label" for="form1">Nombre de la categoria</label>
+          <mdb-error *ngIf="nameCategory?.invalid && (nameCategory?.dirty || nameCategory?.touched) ">First name is required</mdb-error>
+          <mdb-success *ngIf="nameCategory?.valid && (nameCategory?.dirty || nameCategory?.touched)">Looks good!</mdb-success>
         </mdb-form-control>
       </div>
 
-      <div class="col-md-6">
+      <div class="col-md-4 mt-3">
         <mdb-form-control>
-          <input mdbValidate mdbInput type="text" id="form2" class="form-control" formControlName="lastName" required/>
-          <label mdbLabel class="form-label" for="form2">Last name</label>
-          <mdb-error *ngIf="lastName?.invalid && (lastName?.dirty || lastName?.touched)">Last name is required</mdb-error>
-          <mdb-success *ngIf="lastName?.valid && (lastName?.dirty || lastName?.touched)">Looks good!</mdb-success>
-        </mdb-form-control>
-      </div>
-    </div>
-    <div class="row mt-4">
-      <div class="col-md-6">
-        <mdb-form-control>
-          <input mdbValidate mdbInput type="text" id="form1" class="form-control" formControlName="firstName" required/>
-          <label mdbLabel class="form-label" for="form1">First name</label>
-          <mdb-error *ngIf=" firstName?.invalid && (firstName?.dirty || firstName?.touched) ">First name is required</mdb-error>
-          <mdb-success *ngIf="firstName?.valid && (firstName?.dirty || firstName?.touched)">Looks good!</mdb-success>
+          <input mdbValidate mdbInput type="url" id="form2" class="form-control" formControlName="imgCategory" required/>
+          <label mdbLabel class="form-label" for="form2">Url imagen categoria</label>
+          <mdb-error *ngIf="imgCategory?.invalid && (imgCategory?.dirty || imgCategory?.touched)">Last name is required</mdb-error>
+          <mdb-success *ngIf="imgCategory?.valid && (imgCategory?.dirty || imgCategory?.touched)">Looks good!</mdb-success>
         </mdb-form-control>
       </div>
 
-      <div class="col-md-6">
+      <div class="col-md-4 mt-3">
         <mdb-form-control>
-          <input mdbValidate mdbInput type="text" id="form2" class="form-control" formControlName="lastName" required/>
-          <label mdbLabel class="form-label" for="form2">Last name</label>
-          <mdb-error *ngIf="lastName?.invalid && (lastName?.dirty || lastName?.touched)">Last name is required</mdb-error>
-          <mdb-success *ngIf="lastName?.valid && (lastName?.dirty || lastName?.touched)">Looks good!</mdb-success>
+          <input mdbValidate mdbInput type="text" id="form1" class="form-control" formControlName="descCategory" required/>
+          <label mdbLabel class="form-label" for="form1">Descripcion categoria</label>
+          <mdb-error *ngIf="descCategory?.invalid && (descCategory?.dirty || descCategory?.touched) ">First name is required</mdb-error>
+          <mdb-success *ngIf="descCategory?.valid && (descCategory?.dirty || descCategory?.touched)">Looks good!</mdb-success>
         </mdb-form-control>
       </div>
     </div>
+    <button class="btn btn-dark float-end mt-4" type="submit">aceptar</button>
   </form>
 </div>
 
-<div class="container">
+<div class="container mt-5">
+  <mat-form-field appearance="standard">
+    <mat-label>Buscar</mat-label>
+    <input matInput (keyup)="applyFilter($event)" placeholder="buscar..." #input>
+    <mat-icon matSuffix>search</mat-icon>
+  </mat-form-field>
+
+  <div class="example-container mat-elevation-z8">
+    <div class="example-loading-shade"
+       *ngIf="isLoadingResults || isRateLimitReached">
+      <mat-spinner *ngIf="isLoadingResults"></mat-spinner>
+      <div class="example-rate-limit-reached" *ngIf="isRateLimitReached">
+        GitHub's API rate limit has been reached. It will be reset in one minute.
+      </div>
+    </div>
+  <div class="example-table-container">
+    <table mat-table [dataSource]="dataSource" matSort>
+
+      <ng-container matColumnDef="select">
+        <th mat-header-cell *matHeaderCellDef>
+          <mat-checkbox (change)="$event ? masterToggle() : null"
+                        [checked]="selection.hasValue() && isAllSelected()"
+                        [indeterminate]="selection.hasValue() && !isAllSelected()"
+                        [aria-label]="checkboxLabel()">
+          </mat-checkbox>
+        </th>
+        <td mat-cell *matCellDef="let row">
+          <mat-checkbox (click)="$event.stopPropagation()"
+                        (change)="$event ? selection.toggle(row) : null"
+                        [checked]="selection.isSelected(row)"
+                        [aria-label]="checkboxLabel(row)">
+          </mat-checkbox>
+        </td>
+      </ng-container>
+
+      <ng-container matColumnDef="id">
+        <th mat-header-cell *matHeaderCellDef > ID </th>
+        <td mat-cell *matCellDef="let element"> {{element.id}} </td>
+      </ng-container>
+
+      <ng-container matColumnDef="nameCategory">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header> Name </th>
+        <td mat-cell *matCellDef="let element"> {{element.nameCategory}} </td>
+      </ng-container>
+
+      <ng-container matColumnDef="imgCategory">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header> Img </th>
+        <td mat-cell *matCellDef="let element"><img [src]="element.imgCategory" class="img-table"></td>
+      </ng-container>
+
+      <ng-container matColumnDef="descCategoty">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header> Desc </th>
+        <td mat-cell *matCellDef="let element"> {{element.descCategoty}} </td>
+      </ng-container>
+
+      <ng-container matColumnDef="dateCategory" >
+        <th mat-header-cell *matHeaderCellDef mat-sort-header> Date </th>
+        <td mat-cell *matCellDef="let element"> {{element.dateCategory.seconds*1000 | date }} </td>
+      </ng-container>
+
+      <ng-container matColumnDef="editar" >
+        <th mat-header-cell *matHeaderCellDef> Edit </th>
+        <td mat-cell *matCellDef="let element"> <button class="btn btn-primary"><i class="fas fa-pen"></i></button> </td>
+      </ng-container>
+
+      <ng-container matColumnDef="eliminar" >
+        <th mat-header-cell *matHeaderCellDef> Delete </th>
+        <td mat-cell *matCellDef="let element"> <button class="btn btn-danger"><i class="fas fa-trash-alt"></i></button> </td>
+      </ng-container>
+
+      <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+      <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+
+      <tr class="mat-row" *matNoDataRow>
+        <td class="mat-cell" colspan="4">No data matching the filter "{{input.value}}"</td>
+      </tr>
+    </table>
+  </div>
+    <mat-paginator [pageSizeOptions]="[5, 10, 25, 100]" aria-label="Select page of users"></mat-paginator>
+  </div>
 
 </div>

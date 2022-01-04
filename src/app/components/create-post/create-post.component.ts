@@ -1,19 +1,16 @@
-import { ListPostComponent } from './../list-post/list-post.component';
 import { Component, OnInit } from '@angular/core';
 import { AbstractControl, Form, FormControl, FormGroup, Validators } from '@angular/forms';
-import { CreatePostComponent } from '../create-post/create-post.component';
 
 @Component({
-  selector: 'app-post-blog',
-  templateUrl: './post-blog.component.html',
-  styleUrls: ['./post-blog.component.scss']
+  selector: 'app-create-post',
+  templateUrl: './create-post.component.html',
+  styleUrls: ['./create-post.component.scss']
 })
-export class PostBlogComponent implements OnInit {
+export class CreatePostComponent implements OnInit {
 
-  ckeditorContent: string;
   validationForm: FormGroup;
 
-  constructor() {}
+  constructor() { }
 
   ngOnInit(): void {
     this.validationForm = new FormGroup({

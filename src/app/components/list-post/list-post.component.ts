@@ -1,5 +1,4 @@
 import { Component, OnInit, ViewChild, AfterViewInit } from '@angular/core';
-import { AbstractControl, FormControl, FormGroup, Validators } from '@angular/forms';
 import {MatPaginator} from '@angular/material/paginator';
 import {MatSort} from '@angular/material/sort';
 import {MatTableDataSource} from '@angular/material/table';
@@ -45,11 +44,11 @@ const ELEMENT_DATA: PeriodicElement[] = [
 ];
 
 @Component({
-  selector: 'app-sub-category',
-  templateUrl: './sub-category.component.html',
-  styleUrls: ['./sub-category.component.scss']
+  selector: 'app-list-post',
+  templateUrl: './list-post.component.html',
+  styleUrls: ['./list-post.component.scss']
 })
-export class SubCategoryComponent implements OnInit {
+export class ListPostComponent implements OnInit {
 
   displayedColumns: string[] = ['position', 'name', 'weight', 'symbol'];
   dataSource = new MatTableDataSource(ELEMENT_DATA);
@@ -57,22 +56,9 @@ export class SubCategoryComponent implements OnInit {
   @ViewChild(MatPaginator) paginator: MatPaginator;
   @ViewChild(MatSort) sort: MatSort;
 
-  validationForm: FormGroup;
   constructor() { }
 
   ngOnInit(): void {
-    this.validationForm = new FormGroup({
-      firstName: new FormControl(null, Validators.required),
-      lastName: new FormControl(null, Validators.required),
-    });
-  }
-
-  get firstName(): AbstractControl {
-    return this.validationForm.get('firstName');
-  }
-
-  get lastName(): AbstractControl {
-    return this.validationForm.get('lastName');
   }
 
   ngAfterViewInit() {
@@ -88,5 +74,4 @@ export class SubCategoryComponent implements OnInit {
       this.dataSource.paginator.firstPage();
     }
   }
-
 }
