@@ -1,0 +1,38 @@
+<div class="modal-header">
+  <h5 class="modal-title" id="exampleModalLabel">{{ title }}</h5>
+  <button type="button" class="btn-close" aria-label="Close" (click)="modalRef.close()"></button>
+</div>
+<div class="modal-body">
+  <form [formGroup]="validationForm" (ngSubmit)="editCategory(validationForm)" >
+    <div class="row">
+      <div class="col-md-12 mt-4">
+        <mdb-form-control>
+          <input mdbValidate mdbInput type="text" [value]="name" id="form1" class="form-control" formControlName="nameCategory" required/>
+          <label mdbLabel class="form-label" for="form1">Nombre de la categoria</label>
+          <mdb-error *ngIf="nameCategory?.invalid && (nameCategory?.dirty || nameCategory?.touched)">El campo es requrido o ingreselo correctamente</mdb-error>
+        </mdb-form-control>
+      </div>
+
+      <div class="col-md-12 mt-4">
+        <mdb-form-control>
+          <input mdbValidate mdbInput type="url" [value]="img" id="form2" class="form-control" formControlName="imgCategory" required/>
+          <label mdbLabel class="form-label" for="form2">Url imagen categoria</label>
+          <mdb-error *ngIf="imgCategory?.invalid && (imgCategory?.dirty || imgCategory?.touched)">El campo es requrido o ingreselo correctamente</mdb-error>
+        </mdb-form-control>
+      </div>
+
+      <div class="col-md-12 mt-4">
+        <mdb-form-control>
+          <input mdbValidate mdbInput type="text" [value]="desc" id="form1" class="form-control" formControlName="descCategory" required/>
+          <label mdbLabel class="form-label" for="form1">Descripcion categoria</label>
+          <mdb-error *ngIf="descCategory?.invalid && (descCategory?.dirty || descCategory?.touched)">El campo es requrido o ingreselo correctamente</mdb-error>
+        </mdb-form-control>
+      </div>
+    </div>
+    <div class="modal-footer">
+      <button type="button" class="btn btn-danger" (click)="modalRef.close()">Cerrar</button>
+      <button type="submit" class="btn btn-primary" (click)="modalRef.close()">Editar</button>
+    </div>
+  </form>
+</div>
+

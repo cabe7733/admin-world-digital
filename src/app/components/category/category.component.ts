@@ -1,18 +1,13 @@
-import { CategoryService } from './../../services/category.service';
 import { Component, OnInit, ViewChild, AfterViewInit } from '@angular/core';
-import { AbstractControl, Form, FormControl, FormGroup, Validators } from '@angular/forms';
+import { AbstractControl, FormControl, FormGroup, Validators } from '@angular/forms';
+import { MdbModalRef, MdbModalService } from 'mdb-angular-ui-kit/modal';
+import { CategoryService } from './../../services/category.service';
+import Swal from 'sweetalert2'
 import {MatPaginator} from '@angular/material/paginator';
 import {MatSort} from '@angular/material/sort';
 import {MatTableDataSource} from '@angular/material/table';
 import {SelectionModel} from '@angular/cdk/collections';
-
-export interface PeriodicElement {
-  name: string;
-  position: number;
-  weight: number;
-  symbol: string;
-}
-
+import { EditCategoryComponent } from 'src/app/modals/edit-category/edit-category.component';
 
 @Component({
   selector: 'app-category',
@@ -21,18 +16,21 @@ export interface PeriodicElement {
 })
 export class CategoryComponent implements OnInit, AfterViewInit {
 
-  displayedColumns: string[] = ['select','id','nameCategory','imgCategory','descCategoty','dateCategory','editar','eliminar'];
+  modalRef: MdbModalRef<EditCategoryComponent>;
+
+  displayedColumns: string[] = ['id','nameCategory','imgCategory','descCategory','dateCategory','dateCategoryEdit','actions'];
   dataSource = new MatTableDataSource();
 
   @ViewChild(MatPaginator) paginator: MatPaginator;
   @ViewChild(MatSort) sort: MatSort;
   selection = new SelectionModel(true, []);
+  checkboxData;
   isLoadingResults = true;
   isRateLimitReached = false;
 
   validationForm: FormGroup;
 
-  constructor(private categoryServices:CategoryService) {}
+  constructor(private categoryServices:CategoryService, private modalService: MdbModalService) {}
 
   ngOnInit(): void {
     const reg = /^(?:http(s)?:\/\/)?[\w.-]+(?:\.[\w\.-]+)+[\w\-\._~:/?#[\]@!\$&'\(\)\*\+,;=.]+$/;
@@ -41,12 +39,8 @@ export class CategoryComponent implements OnInit, AfterViewInit {
       imgCategory: new FormControl(null, [Validators.required, Validators.pattern(reg)]),
       descCategory: new FormControl(null, [Validators.required, Validators.minLength(14)]),
     });
-    this.categoryServices.dastaCategory().then(result=>{
-      console.log(result);
-      this.isLoadingResults = false;
-      this.isRateLimitReached = result === null;
-      this.dataSource.data = result;
-    })
+
+    this.getCategoria();
   }
 
   /* form */
@@ -64,19 +58,57 @@ export class CategoryComponent implements OnInit, AfterViewInit {
 
   addCategory(value:FormGroup){
     const data = value.value;
-    console.log(value.value);
     this.categoryServices.addCategory(data).then(result=>{
-      console.log(result);
+      this.getCategoria();
     });
     this.validationForm.reset();
-    this.getCategoria();
   }
 
   getCategoria(){
-    this.categoryServices.getCategory().then((resp) => {
-      console.log(resp);
-      this.dataSource.data = resp;
-    });
+    this.categoryServices.getCategory().then(result=>{
+      this.isLoadingResults = false;
+      this.isRateLimitReached = result === null;
+      this.dataSource.data = result;
+    })
+  }
+
+  edit(data){
+      this.modalRef = this.modalService.open(EditCategoryComponent,{
+        modalClass: 'modal-lg',
+        data: {
+          title: data.id,
+          name: data.nameCategory,
+          desc: data.descCategory,
+          img: data.imgCategory
+        }
+      })
+      this.modalRef.onClose.subscribe((message: any) => {
+        setTimeout(()=>{
+            this.getCategoria();
+          }, 1000);
+      });
+  }
+
+  delete(data){
+    Swal.fire({
+      title: 'Desea eliminar la categoria',
+      text: data.nameCategory+' - '+data.id,
+      icon: 'error',
+      showCancelButton: true,
+      confirmButtonColor: '#d33',
+      cancelButtonColor: '#3085d6',
+      confirmButtonText: 'Eliminar'
+    }).then((result) => {
+      if (result.isConfirmed) {
+        Swal.fire(
+          'Eliminada',
+          data.nameCategory+' - '+data.id,
+          'success'
+        )
+        this.categoryServices.deleteCategory(data.id)
+        this.getCategoria();
+      }
+    })
   }
 
   /* DataTable */
@@ -92,26 +124,5 @@ export class CategoryComponent implements OnInit, AfterViewInit {
     if (this.dataSource.paginator) {
       this.dataSource.paginator.firstPage();
     }
-  }
-
-  isAllSelected() {
-    const numSelected = this.selection.selected.length;
-    const numRows = this.dataSource.data.length;
-    return numSelected === numRows;
-  }
-
-  masterToggle() {
-    if (this.isAllSelected()) {
-      this.selection.clear();
-      return;
-    }
-    this.selection.select(...this.dataSource.data);
-  }
-
-  checkboxLabel(row): string {
-    if (!row) {
-      return `${this.isAllSelected() ? 'deselect' : 'select'} all`;
-    }
-    return `${this.selection.isSelected(row) ? 'deselect' : 'select'} row ${row.position + 1}`;
   }
 }

@@ -4,7 +4,7 @@ table {
 }
 
 td{
-  width: 12.5%;
+  width: 12%;
 }
 
 .mat-form-field {
@@ -14,7 +14,7 @@ td{
 
 .img-table {
   height: auto;
-  width: 25%;
+  width: 50%;
 }
 
 
@@ -24,10 +24,10 @@ td{
 }
 
 .example-table-container {
-  position: relative;
+ /*  position: relative;
   min-height: 200px;
   max-height: 400px;
-  overflow: auto;
+  overflow: auto; */
 }
 
 .example-loading-shade {

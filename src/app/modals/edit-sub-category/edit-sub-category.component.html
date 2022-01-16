@@ -1,0 +1,51 @@
+<div class="modal-header">
+  <h5 class="modal-title" id="exampleModalLabel">{{title}} </h5>
+  <button type="button" class="btn-close" aria-label="Close" (click)="modalRef.close()"></button>
+</div>
+<div class="modal-body">
+
+    <form [formGroup]="validationForm" (submit)="editCategory(validationForm)">
+      <div class="row">
+        <div class="col-md-4 mt-3">
+          <mdb-form-control>
+            <input mdbValidate mdbInput type="text" id="form1" class="form-control" formControlName="Name" required/>
+            <label mdbLabel class="form-label" for="form1">Nombre sub-categoria</label>
+            <mdb-error *ngIf="Name?.invalid && (Name?.dirty || Name?.touched)">Nombre sub-categoria</mdb-error>
+          </mdb-form-control>
+        </div>
+
+        <div class="col-md-4 mt-3">
+          <mdb-form-control>
+            <input mdbValidate mdbInput type="text" id="form2" class="form-control" formControlName="imgSubcategory" required/>
+            <label mdbLabel class="form-label" for="form2">Url img sub-categoria</label>
+            <mdb-error *ngIf="imgSubcategory?.invalid && (imgSubcategory?.dirty || imgSubcategory?.touched)">Url img sub-categoria</mdb-error>
+          </mdb-form-control>
+        </div>
+
+        <div class="col-md-4 mt-3">
+          <mat-form-field appearance="outline">
+            <mat-label>Category</mat-label>
+            <mat-select formControlName="categorySubcategory" required>
+              <mat-option [value]="idnamecat">{{namesubcat}}</mat-option>
+              <mat-option *ngFor="let item of category" [value]="item.id">
+                {{item.category}}
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
+        </div>
+
+        <div class="col-md-12 mt-4">
+          <mdb-form-control>
+            <textarea mdbInput class="form-control" id="textAreaExample" rows="4" formControlName="descSubcategory"></textarea>
+            <label mdbLabel class="form-label" for="textAreaExample">Descripcion sub-categoria</label>
+          </mdb-form-control>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-danger" (click)="modalRef.close()">Cerrar</button>
+        <button type="submit" class="btn btn-primary" [disabled]="validationForm.invalid" (click)="modalRef.close()">Editar</button>
+      </div>
+    </form>
+
+</div>
+

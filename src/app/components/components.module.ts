@@ -29,6 +29,10 @@ import { SubCategoryComponent } from './sub-category/sub-category.component';
 import { MaterialModule } from '../material.module';
 import { CreatePostComponent } from './create-post/create-post.component';
 import { ListPostComponent } from './list-post/list-post.component';
+import { EditCategoryComponent } from '../modals/edit-category/edit-category.component';
+import { EditSubCategoryComponent } from '../modals/edit-sub-category/edit-sub-category.component';
+import { UserProfileComponent } from '../pages/user-profile/user-profile.component';
+import { Page404Component } from '../pages/page404/page404.component';
 
 
 
@@ -43,6 +47,10 @@ import { ListPostComponent } from './list-post/list-post.component';
     SubCategoryComponent,
     CreatePostComponent,
     ListPostComponent,
+    EditCategoryComponent,
+    EditSubCategoryComponent,
+    UserProfileComponent,
+    Page404Component,
   ],
   imports: [
     CommonModule,

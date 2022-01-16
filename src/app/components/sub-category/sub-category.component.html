@@ -4,89 +4,115 @@
 </div>
 <div class="container">
   <h4>Crear Sub-Categoria</h4>
-  <form [formGroup]="validationForm">
+  <form [formGroup]="validationForm" (submit)="addSubCategory(validationForm)">
     <div class="row">
       <div class="col-md-4 mt-3">
         <mdb-form-control>
-          <input mdbValidate mdbInput type="text" id="form1" class="form-control" formControlName="firstName" required/>
-          <label mdbLabel class="form-label" for="form1">First name</label>
-          <mdb-error *ngIf=" firstName?.invalid && (firstName?.dirty || firstName?.touched) ">First name is required</mdb-error>
-          <mdb-success *ngIf="firstName?.valid && (firstName?.dirty || firstName?.touched)">Looks good!</mdb-success>
+          <input mdbValidate mdbInput type="text" id="form1" class="form-control" formControlName="Name" required/>
+          <label mdbLabel class="form-label" for="form1">Nombre sub-categoria</label>
+          <mdb-error *ngIf="Name?.invalid && (Name?.dirty || Name?.touched)">Nombre sub-categoria</mdb-error>
         </mdb-form-control>
       </div>
 
       <div class="col-md-4 mt-3">
         <mdb-form-control>
-          <input mdbValidate mdbInput type="text" id="form2" class="form-control" formControlName="lastName" required/>
-          <label mdbLabel class="form-label" for="form2">Last name</label>
-          <mdb-error *ngIf="lastName?.invalid && (lastName?.dirty || lastName?.touched)">Last name is required</mdb-error>
-          <mdb-success *ngIf="lastName?.valid && (lastName?.dirty || lastName?.touched)">Looks good!</mdb-success>
+          <input mdbValidate mdbInput type="text" id="form2" class="form-control" formControlName="imgSubcategory" required/>
+          <label mdbLabel class="form-label" for="form2">Url img sub-categoria</label>
+          <mdb-error *ngIf="imgSubcategory?.invalid && (imgSubcategory?.dirty || imgSubcategory?.touched)">Url img sub-categoria</mdb-error>
         </mdb-form-control>
       </div>
 
       <div class="col-md-4 mt-3">
         <mdb-form-control>
-          <input mdbValidate mdbInput type="text" id="form1" class="form-control" formControlName="firstName" required/>
-          <label mdbLabel class="form-label" for="form1">First name</label>
-          <mdb-error *ngIf=" firstName?.invalid && (firstName?.dirty || firstName?.touched) ">First name is required</mdb-error>
-          <mdb-success *ngIf="firstName?.valid && (firstName?.dirty || firstName?.touched)">Looks good!</mdb-success>
+          <select mdbValidate mdbInput class="form-control select-input form-select" formControlName="categorySubcategory" required>
+            <option *ngFor="let itemCategory of category" [value]="itemCategory.id">{{itemCategory.category}}</option>
+          </select>
+          <label  mdbLabel class="form-label" for="">Categoria</label>
         </mdb-form-control>
       </div>
 
       <div class="col-md-12 mt-4">
         <mdb-form-control>
-          <textarea mdbInput class="form-control" id="textAreaExample" rows="4"></textarea>
-          <label mdbLabel class="form-label" for="textAreaExample">Message</label>
+          <textarea mdbInput class="form-control" id="textAreaExample" rows="4" formControlName="descSubcategory"></textarea>
+          <label mdbLabel class="form-label" for="textAreaExample">Descripcion sub-categoria</label>
         </mdb-form-control>
       </div>
     </div>
-    <button class="btn btn-dark float-end mt-4" type="submit">aceptar</button>
+    <button class="btn btn-dark float-end mt-4" type="submit" [disabled]="validationForm.invalid">aceptar</button>
   </form>
 </div>
 
 <div class="container mt-5">
   <mat-form-field appearance="standard">
-    <mat-label>Filter</mat-label>
-    <input matInput (keyup)="applyFilter($event)" placeholder="Ex. Mia" #input>
+    <mat-label>Buscar</mat-label>
+    <input matInput (keyup)="applyFilter($event)" placeholder="buscar..." #input>
+    <mat-icon matSuffix>search</mat-icon>
   </mat-form-field>
 
-  <div class="mat-elevation-z8">
+  <div class="example-container mat-elevation-z8">
+    <div class="example-loading-shade"
+       *ngIf="isLoadingResults || isRateLimitReached">
+      <mat-spinner *ngIf="isLoadingResults"></mat-spinner>
+      <div class="example-rate-limit-reached" *ngIf="isRateLimitReached">
+        Espere un minuto
+      </div>
+    </div>
+
+  <div class="example-table-container">
     <table mat-table [dataSource]="dataSource" matSort>
 
-          <!-- Position Column -->
-      <ng-container matColumnDef="position">
-        <th mat-header-cell *matHeaderCellDef> No. </th>
-        <td mat-cell *matCellDef="let element"> {{element.position}} </td>
+      <ng-container matColumnDef="id">
+        <th mat-header-cell *matHeaderCellDef>id</th>
+        <td mat-cell *matCellDef="let element">{{element.id}} </td>
       </ng-container>
 
-      <!-- Name Column -->
-      <ng-container matColumnDef="name">
-        <th mat-header-cell *matHeaderCellDef> Name </th>
-        <td mat-cell *matCellDef="let element"> {{element.name}} </td>
+      <ng-container matColumnDef="descSubCategory">
+        <th mat-header-cell *matHeaderCellDef>desc</th>
+        <td mat-cell *matCellDef="let element">{{element.descSubCategory}}</td>
       </ng-container>
 
-      <!-- Weight Column -->
-      <ng-container matColumnDef="weight">
-        <th mat-header-cell *matHeaderCellDef> Weight </th>
-        <td mat-cell *matCellDef="let element"> {{element.weight}} </td>
+      <ng-container matColumnDef="nameCategorySubCategory">
+        <th mat-header-cell *matHeaderCellDef >nameCat</th>
+        <td mat-cell *matCellDef="let element">{{element.nameCategorySubCategory}} </td>
       </ng-container>
 
-      <!-- Symbol Column -->
-      <ng-container matColumnDef="symbol">
-        <th mat-header-cell *matHeaderCellDef> Symbol </th>
-        <td mat-cell *matCellDef="let element"> {{element.symbol}} </td>
+      <ng-container matColumnDef="nameSubCategory">
+        <th mat-header-cell *matHeaderCellDef >nameSub</th>
+        <td mat-cell *matCellDef="let element">{{element.nameSubCategory}} </td>
+      </ng-container>
+
+      <ng-container matColumnDef="imgSubCategory">
+        <th mat-header-cell *matHeaderCellDef >img</th>
+        <td mat-cell *matCellDef="let element"><img [src]="element.imgSubCategory" class="img-table"></td>
+      </ng-container>
+
+      <ng-container matColumnDef="dateSubCategory">
+        <th mat-header-cell *matHeaderCellDef >date</th>
+        <td mat-cell *matCellDef="let element">{{element.dateSubCategory.seconds*1000 | date:'yyyy-MM-dd'}} </td>
+      </ng-container>
+
+      <ng-container matColumnDef="dateSubCategoryEdit">
+        <th mat-header-cell *matHeaderCellDef >dateEdit</th>
+        <td mat-cell *matCellDef="let element">{{element.dateSubCategoryEdit.seconds*1000 | date:'yyyy-MM-dd'}} </td>
+      </ng-container>
+
+      <ng-container matColumnDef="actions">
+        <th mat-header-cell *matHeaderCellDef>Actions</th>
+        <td mat-cell *matCellDef="let element">
+          <button mat-mini-fab color="primary" class="me-2" (click)="edit(element)"><mat-icon>edit</mat-icon></button>
+          <button mat-mini-fab color="warn" (click)="delete(element)"><mat-icon>delete</mat-icon></button>
+        </td>
       </ng-container>
 
       <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
       <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
 
-      <!-- Row shown when there is no matching data. -->
       <tr class="mat-row" *matNoDataRow>
-        <td class="mat-cell" colspan="4">No data matching the filter "{{input.value}}"</td>
+        <td class="mat-cell" colspan="4">No hay datos que coincidan con la busquda "{{input.value}}"</td>
       </tr>
     </table>
-
-    <mat-paginator [pageSizeOptions]="[5, 10, 25, 100]" aria-label="Select page of users"></mat-paginator>
+  </div>
+    <mat-paginator [pageSizeOptions]="[5, 10, 25, 100]" aria-label="Seleccionar página"></mat-paginator>
   </div>
 
 </div>

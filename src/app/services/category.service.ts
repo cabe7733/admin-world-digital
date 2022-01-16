@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { db } from "../app.module";
-import { doc, setDoc, collection, addDoc, updateDoc, serverTimestamp, Timestamp, query, where, onSnapshot, getDoc, getDocs } from "firebase/firestore";
+import { doc, setDoc, collection, addDoc, updateDoc, serverTimestamp, Timestamp, query, where, onSnapshot, getDoc, getDocs, deleteDoc } from "firebase/firestore";
 
 @Injectable({
   providedIn: 'root'
@@ -9,57 +9,65 @@ export class CategoryService {
 
   constructor() { }
 
-
   async addCategory(data){
-
     let message;
     const docData = {
       nameCategory: data.nameCategory,
       imgCategory: data.imgCategory,
-      descCategoty: data.descCategory,
-      dateCategory:serverTimestamp()
+      descCategory: data.descCategory,
+      dateCategory:serverTimestamp(),
+      dateCategoryEdit:serverTimestamp()
     };
     try {
       const docRef = await addDoc(collection(db, "categoryPost"),docData);
-      console.log("Document written with ID: ", docRef.id);
       message =docRef.id;
     } catch (e) {
-      console.error("Error adding document: ", e);
       message =e;
     }
-
     return message;
   }
 
-  async getCategory(){
+/*   async getCategoryTR(){
     let data=[];
-    let Error;
     onSnapshot(collection(db, "categoryPost"),(snapshot) => {
         snapshot.docChanges().forEach((change) => {
           let dataCat = change.doc.data();
-          data.push(dataCat)
+          let id= change.doc.id;
+          data.push({id,...dataCat})
           console.log(data);
           return data;
         });
-    },
-    (error) => {
+    },(error) => {
       console.log(error);
-      return Error = error;
+      return error;
     });
-
     return data;
-  }
+  } */
 
-  async dastaCategory(){
+  async getCategory(){
     let id;
     let data=[];
     const q = query(collection(db, "categoryPost"));
     const querySnapshot = await getDocs(q);
     querySnapshot.forEach((doc) => {
-      id =doc.id
+      id = doc.id
       data.push({id,...doc.data()});
     });
-
     return data;
+  }
+
+  async deleteCategory(id){
+    await deleteDoc(doc(db, "categoryPost", id));
+  }
+
+  async editCategory(id,data){
+    const docData = {
+      nameCategory: data.nameCategory,
+      imgCategory: data.imgCategory,
+      descCategory: data.descCategory,
+      dateCategoryEdit:serverTimestamp()
+    };
+    const categoryPostRef = doc(db, "categoryPost", id);
+    await updateDoc(categoryPostRef, docData);
   }
 }
