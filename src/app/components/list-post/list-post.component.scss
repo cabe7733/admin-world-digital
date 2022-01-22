@@ -1,47 +1,64 @@
+/* Structure */
 table {
   width: 100%;
 }
 
-tr.example-detail-row {
-  height: 0;
+td{
+  width: 11%;
+  text-align: center;
 }
 
-tr.example-element-row:not(.example-expanded-row):hover {
-  background: whitesmoke;
+th.mat-header-cell{
+  text-align: center;
 }
 
-tr.example-element-row:not(.example-expanded-row):active {
-  background: #efefef;
+.mat-form-field {
+  font-size: 14px;
+  width: 30%;
 }
 
-.example-element-row td {
-  border-bottom-width: 0;
+.img-table {
+  height: auto;
+  width: 50%;
 }
 
-.example-element-detail {
-  overflow: hidden;
+
+/* Structure */
+.example-container {
+  position: relative;
+}
+
+.example-table-container {
+  /* position: relative;
+  min-height: 200px;
+  max-height: 400px;
+  overflow: auto; */
+}
+
+.example-loading-shade {
+  position: absolute;
+  top: 0;
+  left: 0;
+  bottom: 56px;
+  right: 0;
+  background: rgba(0, 0, 0, 0.15);
+  z-index: 1;
   display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
-.example-element-diagram {
-  min-width: 80px;
-  border: 2px solid black;
-  padding: 8px;
-  font-weight: lighter;
-  margin: 8px 0;
-  height: 104px;
+.example-rate-limit-reached {
+  max-width: 360px;
+  text-align: center;
 }
 
-.example-element-symbol {
-  font-weight: bold;
-  font-size: 40px;
-  line-height: normal;
+/* Column Widths */
+.mat-column-number,
+.mat-column-state {
+  max-width: 64px;
 }
 
-.example-element-description {
-  padding: 16px;
-}
-
-.example-element-description-attribution {
-  opacity: 0.5;
+.mat-column-created {
+  max-width: 124px;
 }

@@ -98,29 +98,29 @@ export class SubCategoryComponent implements OnInit, AfterViewInit {
         this.getSubCategory();
       }, 1500);
     });
-}
+  }
 
-delete(data){
-  Swal.fire({
-    title: 'Desea eliminar la sub-categoria',
-    text: data.nameCategory+' - '+data.id,
-    icon: 'error',
-    showCancelButton: true,
-    confirmButtonColor: '#d33',
-    cancelButtonColor: '#3085d6',
-    confirmButtonText: 'Eliminar'
-  }).then((result) => {
-    if (result.isConfirmed) {
-      Swal.fire(
-        'Eliminada',
-        data.nameCategory+' - '+data.id,
-        'success'
-      )
-      this.subCategoryService.deleteSubCategory(data.id)
-      this.getSubCategory();
-    }
-  })
-}
+  delete(data){
+    Swal.fire({
+      title: 'Desea eliminar la sub-categoria',
+      text: data.nameCategory+' - '+data.id,
+      icon: 'error',
+      showCancelButton: true,
+      confirmButtonColor: '#d33',
+      cancelButtonColor: '#3085d6',
+      confirmButtonText: 'Eliminar'
+    }).then((result) => {
+      if (result.isConfirmed) {
+        Swal.fire(
+          'Eliminada',
+          data.nameCategory+' - '+data.id,
+          'success'
+        )
+        this.subCategoryService.deleteSubCategory(data.id)
+        this.getSubCategory();
+      }
+    })
+  }
 
   ngAfterViewInit() {
     this.dataSource.paginator = this.paginator;

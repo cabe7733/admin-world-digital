@@ -1,60 +1,52 @@
 <div class="mt-3">
   <form [formGroup]="validationForm" (ngSubmit)="onSubmit(validationForm)" >
     <div class="row">
-      <div class="col-md-4">
+      <div class="col-md-6 mt-2">
         <mdb-form-control>
-          <input mdbValidate mdbInput type="text" id="form1" class="form-control" formControlName="firstName" required/>
-          <label mdbLabel class="form-label" for="form1">First name</label>
-          <mdb-error *ngIf="firstName?.invalid && (firstName?.dirty || firstName?.touched)">First name is required</mdb-error>
-          <mdb-success *ngIf="firstName?.valid && (firstName?.dirty || firstName?.touched) ">Looks good!</mdb-success>
+          <input mdbValidate mdbInput type="text" id="form1" class="form-control" formControlName="titlePost" required/>
+          <label mdbLabel class="form-label" for="form1">Titulo Post</label>
+          <mdb-error *ngIf="titlePost?.invalid && (titlePost?.dirty || titlePost?.touched)">First name is required</mdb-error>
+          <mdb-success *ngIf="titlePost?.valid && (titlePost?.dirty || titlePost?.touched) "></mdb-success>
         </mdb-form-control>
       </div>
 
-      <div class="col-md-4">
+      <div class="col-md-6 mt-2">
         <mdb-form-control>
-          <input mdbValidate mdbInput type="text" id="form2" class="form-control" formControlName="lastName" required />
-          <label mdbLabel class="form-label" for="form2">Last name</label>
-          <mdb-error *ngIf="lastName?.invalid && (lastName?.dirty || lastName?.touched)">Last name is required</mdb-error>
-          <mdb-success *ngIf="lastName?.valid && (lastName?.dirty || lastName?.touched)">Looks good!</mdb-success>
-        </mdb-form-control>
-      </div>
-
-      <div class="col-md-4">
-        <mdb-form-control>
-          <input mdbValidate mdbInput type="text" id="form2" class="form-control" formControlName="lastName" required />
-          <label mdbLabel class="form-label" for="form2">Last name</label>
-          <mdb-error *ngIf="lastName?.invalid && (lastName?.dirty || lastName?.touched)">Last name is required</mdb-error>
-          <mdb-success *ngIf="lastName?.valid && (lastName?.dirty || lastName?.touched)">Looks good!</mdb-success>
+          <input mdbValidate mdbInput type="text" id="form2" class="form-control" formControlName="imgPost" required />
+          <label mdbLabel class="form-label" for="form2">Url img Post</label>
+          <mdb-error *ngIf="imgPost?.invalid && (imgPost?.dirty || imgPost?.touched)">Last name is required</mdb-error>
+          <mdb-success *ngIf="imgPost?.valid && (imgPost?.dirty || imgPost?.touched)"></mdb-success>
         </mdb-form-control>
       </div>
 
       <div class="col-md-6 mt-4">
         <mdb-form-control>
-          <input mdbValidate mdbInput type="text" id="form1" class="form-control" formControlName="firstName" required/>
-          <label mdbLabel class="form-label" for="form1">First name</label>
-          <mdb-error *ngIf="firstName?.invalid && (firstName?.dirty || firstName?.touched)">First name is required</mdb-error>
-          <mdb-success *ngIf="firstName?.valid && (firstName?.dirty || firstName?.touched) ">Looks good!</mdb-success>
+          <input mdbValidate mdbInput type="text" id="form2" class="form-control" formControlName="creatorPost" required />
+          <label mdbLabel class="form-label" for="form2">Nombre creador post</label>
+          <mdb-error *ngIf="creatorPost?.invalid && (creatorPost?.dirty || creatorPost?.touched)">Last name is required</mdb-error>
+          <mdb-success *ngIf="creatorPost?.valid && (creatorPost?.dirty || creatorPost?.touched)"></mdb-success>
         </mdb-form-control>
       </div>
 
       <div class="col-md-6 mt-4">
         <mdb-form-control>
-          <input mdbValidate mdbInput type="text" id="form2" class="form-control" formControlName="lastName" required />
-          <label mdbLabel class="form-label" for="form2">Last name</label>
-          <mdb-error *ngIf="lastName?.invalid && (lastName?.dirty || lastName?.touched)">Last name is required</mdb-error>
-          <mdb-success *ngIf="lastName?.valid && (lastName?.dirty || lastName?.touched)">Looks good!</mdb-success>
+          <select mdbValidate mdbInput class="form-control select-input form-select" formControlName="subcategory" required>
+            <option *ngFor="let itemCategory of category" [value]="itemCategory.id">{{itemCategory.subcategory}}</option>
+          </select>
+          <label  mdbLabel class="form-label" for="">Sub-Categoria Post</label>
+          <mdb-error *ngIf="subcategory?.invalid && (subcategory?.dirty || subcategory?.touched)">Last name is required</mdb-error>
+          <mdb-success *ngIf="subcategory?.valid && (subcategory?.dirty || subcategory?.touched)"></mdb-success>
         </mdb-form-control>
       </div>
     </div>
 
-    <div class="col-md-12 mt-3">
-      <ckeditor
-      formControlName="dataText" required
-      [config]="{uiColor: '#BCBCBC'}"
-    [readonly]="false">
-    </ckeditor>
+    <div class="col-md-12 mt-4">
+      <mdb-form-control>
+        <ckeditor  mdbInput formControlName="contentPost" required [config]="{uiColor: '#BCBCBC'}" [readonly]="false">
+        </ckeditor>
+      </mdb-form-control>
     </div>
 
-    <button class="btn btn-dark float-end mt-5">guardar</button>
+    <button class="btn btn-dark float-end mt-3" [disabled]="validationForm.invalid">guardar</button>
   </form>
 </div>

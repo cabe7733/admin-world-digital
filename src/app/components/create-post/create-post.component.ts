@@ -1,3 +1,4 @@
+import { BlogService } from './../../services/blog.service';
 import { Component, OnInit } from '@angular/core';
 import { AbstractControl, Form, FormControl, FormGroup, Validators } from '@angular/forms';
 
@@ -9,27 +10,47 @@ import { AbstractControl, Form, FormControl, FormGroup, Validators } from '@angu
 export class CreatePostComponent implements OnInit {
 
   validationForm: FormGroup;
+  category;
 
-  constructor() { }
+  constructor(private postservices:BlogService) { }
 
   ngOnInit(): void {
     this.validationForm = new FormGroup({
-      firstName: new FormControl(null, Validators.required),
-      lastName: new FormControl(null, Validators.required),
-      dataText: new FormControl(null, Validators.required)
+      contentPost:new FormControl(null, [Validators.required]),
+      creatorPost:new FormControl(null, [Validators.required]),
+      imgPost:new FormControl(null, [Validators.required]),
+      subcategory:new FormControl(null, [Validators.required]),
+      titlePost:new FormControl(null, [Validators.required]),
     });
+    this.subCategory();
   }
 
-  get firstName(): AbstractControl {
-    return this.validationForm.get('firstName');
+  get contentPost():AbstractControl{
+    return this.validationForm.get('contentPost');
   }
-
-  get lastName(): AbstractControl {
-    return this.validationForm.get('lastName');
+  get creatorPost():AbstractControl{
+    return this.validationForm.get('creatorPost');
+  }
+  get imgPost():AbstractControl{
+    return this.validationForm.get('imgPost');
+  }
+  get subcategory():AbstractControl{
+    return this.validationForm.get('subcategory');
+  }
+  get titlePost():AbstractControl{
+    return this.validationForm.get('titlePost');
   }
 
   onSubmit(form:FormGroup){
-    console.log(form.value);
+    this.postservices.addPost(form.value).then(result=>{
+    })
+    form.reset();
+  }
+
+  subCategory(){
+    this.postservices.getSubCategory().then(result=>{
+     this.category=result
+    })
   }
 
 }

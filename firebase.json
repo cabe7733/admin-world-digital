@@ -1,7 +1,7 @@
 {
   "hosting": {
     "site": "admin-worlddigitaleya",
-    "public": "dist",
+    "public": "dist/adminwdeya",
     "ignore": [
       "firebase.json",
       "**/.*",
