@@ -1,6 +1,7 @@
 import { BlogService } from './../../services/blog.service';
 import { Component, OnInit } from '@angular/core';
 import { AbstractControl, Form, FormControl, FormGroup, Validators } from '@angular/forms';
+import { MdbModalRef } from 'mdb-angular-ui-kit/modal';
 
 @Component({
   selector: 'app-create-post',
@@ -12,7 +13,7 @@ export class CreatePostComponent implements OnInit {
   validationForm: FormGroup;
   category;
 
-  constructor(private postservices:BlogService) { }
+  constructor(private postservices:BlogService,public modalRef: MdbModalRef<CreatePostComponent>) { }
 
   ngOnInit(): void {
     this.validationForm = new FormGroup({

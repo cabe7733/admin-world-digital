@@ -14,6 +14,9 @@ export class HeaderComponent implements OnInit {
   ngOnInit(): void {
   }
 
+  myPerfil(){
+    this.router.navigate(['/component/perfil'])
+  }
 
   logOut(){
     this.authservices.logout();

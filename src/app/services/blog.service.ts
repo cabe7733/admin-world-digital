@@ -74,8 +74,6 @@ export class BlogService {
       id = doc.id
       data.push({id,...doc.data()});
     });
-    console.log(data);
-
     return data;
   }
 
@@ -108,17 +106,21 @@ export class BlogService {
   }
 
   async editPost(id,data){
-    let nameCat= await this.getDataCategory(data.categorySubcategory).then(result=>{
+    let nameCat= await this.getDataCategory(data.subcategory).then(result=>{
       return result;
     });
     const docData = {
-      nameSubCategory:data.Name,
-      idCategorySubCategory: data.categorySubcategory,
-      nameCategorySubCategory:nameCat,
-      imgSubCategory: data.imgSubcategory,
-      descSubCategory: data.descSubcategory,
-      dateSubCategoryEdit:serverTimestamp()
+      categoryPost:nameCat.nameCategorySubCategory,
+      idCategoryPost:nameCat.idCategorySubCategory,
+      contentPost:data.contentPost,
+      creatorPost:data.creatorPost,
+      dateEditPost:serverTimestamp(),
+      idSubCategory:data.subcategory,
+      imgPost:data.imgPost,
+      subCategory:nameCat.nameSubCategory,
+      titlePost:data.titlePost,
     };
+
     const categoryPostRef = doc(db, "blog", id);
     await updateDoc(categoryPostRef, docData);
   }

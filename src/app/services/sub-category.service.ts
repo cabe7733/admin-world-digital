@@ -24,8 +24,6 @@ export class SubCategoryService {
       dateSubCategory:serverTimestamp(),
       dateSubCategoryEdit:serverTimestamp()
     };
-    console.log(docData);
-
     try {
       const docRef = await addDoc(collection(db, "subCategoryPost"),docData);
       message =docRef.id;
@@ -59,8 +57,6 @@ export class SubCategoryService {
       id = doc.id
       data.push({id,...doc.data()});
     });
-    console.log(data);
-
     return data;
   }
 
@@ -69,7 +65,6 @@ export class SubCategoryService {
     const docSnap = await getDoc(docRef);
 
     if (docSnap.exists()) {
-      console.log("Document data:", docSnap.data().nameCategory);
       return docSnap.data().nameCategory;
     } else {
       // doc.data() will be undefined in this case

@@ -20,8 +20,6 @@ export class AuthService {
           let notlogin = false;
           datalogin = { errorCode, notlogin };
       });
-      console.log(datalogin);
-
       return datalogin;
   }
 

@@ -1,16 +1,59 @@
 <div class="modal-header">
-  <h5 class="modal-title" id="exampleModalLabel">{{ title }}</h5>
-  <button
-    type="button"
-    class="btn-close"
-    aria-label="Close"
-    (click)="modalRef.close()"
-  ></button>
+  <h5 class="modal-title" id="exampleModalLabel">Editar Post - {{data.titlePost}}</h5>
+  <button type="button" class="btn-close" aria-label="Close" (click)="modalRef.close()"></button>
 </div>
-<div class="modal-body">...</div>
-<div class="modal-footer">
-  <button type="button" class="btn btn-secondary" (click)="modalRef.close()">
-    Close
-  </button>
-  <button type="button" class="btn btn-primary">Save changes</button>
+
+<div class="modal-body">
+  <form [formGroup]="validationForm" (ngSubmit)="onSubmit(validationForm)" >
+    <div class="row">
+      <div class="col-md-6 mt-2">
+        <mdb-form-control>
+          <input mdbValidate mdbInput type="text" id="form1" class="form-control" formControlName="titlePost" required/>
+          <label mdbLabel class="form-label" for="form1">Titulo Post</label>
+          <mdb-error *ngIf="titlePost?.invalid && (titlePost?.dirty || titlePost?.touched)">First name is required</mdb-error>
+          <mdb-success *ngIf="titlePost?.valid && (titlePost?.dirty || titlePost?.touched) "></mdb-success>
+        </mdb-form-control>
+      </div>
+
+      <div class="col-md-6 mt-2">
+        <mdb-form-control>
+          <input mdbValidate mdbInput type="text" id="form2" class="form-control" formControlName="imgPost" required />
+          <label mdbLabel class="form-label" for="form2">Url img Post</label>
+          <mdb-error *ngIf="imgPost?.invalid && (imgPost?.dirty || imgPost?.touched)">Last name is required</mdb-error>
+          <mdb-success *ngIf="imgPost?.valid && (imgPost?.dirty || imgPost?.touched)"></mdb-success>
+        </mdb-form-control>
+      </div>
+
+      <div class="col-md-6 mt-4">
+        <mdb-form-control>
+          <input mdbValidate mdbInput type="text" id="form2" class="form-control" formControlName="creatorPost" required />
+          <label mdbLabel class="form-label" for="form2">Nombre creador post</label>
+          <mdb-error *ngIf="creatorPost?.invalid && (creatorPost?.dirty || creatorPost?.touched)">Last name is required</mdb-error>
+          <mdb-success *ngIf="creatorPost?.valid && (creatorPost?.dirty || creatorPost?.touched)"></mdb-success>
+        </mdb-form-control>
+      </div>
+
+      <div class="col-md-6 mt-4">
+        <mat-form-field appearance="outline">
+          <mat-label>Category</mat-label>
+          <mat-select formControlName="subcategory" required>
+            <mat-option [value]="idsc">{{namesc}}</mat-option>
+            <mat-option *ngFor="let item of category" [value]="item.id">
+              {{item.subCategory}}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+      </div>
+    </div>
+
+    <div class="col-md-12 mt-4">
+        <ckeditor  mdbInput formControlName="contentPost" required [config]="{uiColor: '#BCBCBC'}" [readonly]="false">
+        </ckeditor>
+    </div>
+
+    <div class="modal-footer">
+      <button type="button" class="btn btn-danger" (click)="modalRef.close()">Cerrar</button>
+      <button class="btn btn-dark" [disabled]="validationForm.invalid" (click)="modalRef.close()">guardar</button>
+    </div>
+  </form>
 </div>

@@ -103,7 +103,7 @@ export class SubCategoryComponent implements OnInit, AfterViewInit {
   delete(data){
     Swal.fire({
       title: 'Desea eliminar la sub-categoria',
-      text: data.nameCategory+' - '+data.id,
+      text: data.nameSubCategory+' - '+data.id,
       icon: 'error',
       showCancelButton: true,
       confirmButtonColor: '#d33',
@@ -113,7 +113,7 @@ export class SubCategoryComponent implements OnInit, AfterViewInit {
       if (result.isConfirmed) {
         Swal.fire(
           'Eliminada',
-          data.nameCategory+' - '+data.id,
+          data.nameSubCategory+' - '+data.id,
           'success'
         )
         this.subCategoryService.deleteSubCategory(data.id)

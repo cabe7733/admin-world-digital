@@ -41,6 +41,8 @@ import { getAuth } from "firebase/auth";
 
 import { environment } from 'src/environments/environment.prod';
 import { EditPostComponent } from './modals/edit-post/edit-post.component';
+import { CKEditorModule } from 'ng2-ckeditor';
+import { MaterialModule } from './material.module';
 
 
 /* FIREBASE CONFIG */
@@ -73,9 +75,11 @@ export const auth = getAuth(app)
     MdbTooltipModule,
     MdbValidationModule,
     ReactiveFormsModule,
+    CKEditorModule,
     FormsModule,
     ComponentsModule,
-    APP_ROUTING
+    APP_ROUTING,
+    MaterialModule
   ],
   providers: [
     CategoryService,

@@ -1,8 +1,92 @@
-<mat-tab-group mat-align-tabs="center">
-  <mat-tab label="Crear Post">
-    <app-create-post></app-create-post>
-  </mat-tab>
-  <mat-tab label="Lista de Post">
-    <app-list-post></app-list-post>
-  </mat-tab>
-</mat-tab-group>
+<div class="container">
+  <div class="container">
+    <button class="btn btn-primary float-end" (click)="createPost()">
+      <i class="fas fa-plus"></i>
+      Crear Post
+    </button>
+  </div>
+</div>
+
+
+<div class="container-fluid mt-1 mb-2">
+
+  <div class="container mt-3">
+    <mat-form-field appearance="standard">
+      <mat-label>Buscar</mat-label>
+      <input matInput (keyup)="applyFilter($event)" placeholder="buscar..." #input>
+      <mat-icon matSuffix>search</mat-icon>
+    </mat-form-field>
+
+    <div class="example-container mat-elevation-z8">
+      <div class="example-loading-shade"
+         *ngIf="isLoadingResults || isRateLimitReached">
+        <mat-spinner *ngIf="isLoadingResults"></mat-spinner>
+        <div class="example-rate-limit-reached" *ngIf="isRateLimitReached">
+          Espere un minuto
+        </div>
+      </div>
+
+    <div class="example-table-container">
+      <table mat-table [dataSource]="dataSource" matSort>
+        <ng-container matColumnDef="id">
+          <th mat-header-cell *matHeaderCellDef>id</th>
+          <td mat-cell *matCellDef="let element">{{element.id}} </td>
+        </ng-container>
+
+        <ng-container matColumnDef="titlePost">
+          <th mat-header-cell *matHeaderCellDef>titlePost</th>
+          <td mat-cell *matCellDef="let element">{{element.titlePost}}</td>
+        </ng-container>
+
+        <ng-container matColumnDef="imgPost">
+          <th mat-header-cell *matHeaderCellDef >imgPost</th>
+          <td mat-cell *matCellDef="let element"><img [src]="element.imgPost" class="img-table"> </td>
+        </ng-container>
+
+        <ng-container matColumnDef="subCategory">
+          <th mat-header-cell *matHeaderCellDef >subCategory</th>
+          <td mat-cell *matCellDef="let element">{{element.subCategory}} </td>
+        </ng-container>
+
+        <ng-container matColumnDef="categoryPost">
+          <th mat-header-cell *matHeaderCellDef >categoryPost</th>
+          <td mat-cell *matCellDef="let element">{{element.categoryPost}}</td>
+        </ng-container>
+
+        <ng-container matColumnDef="creatorPost">
+          <th mat-header-cell *matHeaderCellDef >creatorPost</th>
+          <td mat-cell *matCellDef="let element">{{element.creatorPost}} </td>
+        </ng-container>
+
+        <ng-container matColumnDef="datePost">
+          <th mat-header-cell *matHeaderCellDef >datePost</th>
+          <td mat-cell *matCellDef="let element">{{element.datePost.seconds*1000 | date:'yyyy-MM-dd'}} </td>
+        </ng-container>
+
+        <ng-container matColumnDef="dateEditPost">
+          <th mat-header-cell *matHeaderCellDef >dateEditPost</th>
+          <td mat-cell *matCellDef="let element">{{element.dateEditPost.seconds*1000 | date:'yyyy-MM-dd'}} </td>
+        </ng-container>
+
+        <ng-container matColumnDef="actions">
+          <th mat-header-cell *matHeaderCellDef>Actions</th>
+          <td mat-cell *matCellDef="let element">
+            <button mat-mini-fab color="primary" class="me-2" (click)="edit(element)"><mat-icon>edit</mat-icon></button>
+            <button mat-mini-fab color="warn" (click)="delete(element)"><mat-icon>delete</mat-icon></button>
+          </td>
+        </ng-container>
+
+        <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+        <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+
+        <tr class="mat-row" *matNoDataRow>
+          <td class="mat-cell" colspan="4">No hay datos que coincidan con la busquda "{{input.value}}"</td>
+        </tr>
+      </table>
+    </div>
+      <mat-paginator [pageSizeOptions]="[5, 10, 25, 100]" aria-label="Seleccionar página"></mat-paginator>
+    </div>
+
+  </div>
+
+</div>

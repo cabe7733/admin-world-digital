@@ -1,5 +1,5 @@
 import { COMPONENT_ROUTING } from './component-routing.routes';
-import { NgModule } from '@angular/core';
+import { forwardRef, NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { ComponentsComponent } from './components.component';
 import { HomeComponent } from './home/home.component';
@@ -11,7 +11,7 @@ import { MdbCollapseModule } from 'mdb-angular-ui-kit/collapse';
 import { CKEditorModule } from 'ng2-ckeditor';
 import { MdbFormsModule } from 'mdb-angular-ui-kit/forms';
 /* forms module */
-import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { FormsModule, NG_VALUE_ACCESSOR, ReactiveFormsModule } from '@angular/forms';
 import { MdbValidationModule } from 'mdb-angular-ui-kit/validation';
 import { MdbTooltipModule } from 'mdb-angular-ui-kit/tooltip';
 import { MdbTabsModule } from 'mdb-angular-ui-kit/tabs';
@@ -27,12 +27,14 @@ import { MdbCarouselModule } from 'mdb-angular-ui-kit/carousel';
 import { MdbAccordionModule } from 'mdb-angular-ui-kit/accordion';
 import { SubCategoryComponent } from './sub-category/sub-category.component';
 import { MaterialModule } from '../material.module';
-import { CreatePostComponent } from './create-post/create-post.component';
-import { ListPostComponent } from './list-post/list-post.component';
 import { EditCategoryComponent } from '../modals/edit-category/edit-category.component';
 import { EditSubCategoryComponent } from '../modals/edit-sub-category/edit-sub-category.component';
 import { UserProfileComponent } from '../pages/user-profile/user-profile.component';
 import { Page404Component } from '../pages/page404/page404.component';
+import { CreatePostComponent } from '../modals/create-post/create-post.component';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatIconModule } from '@angular/material/icon';
+import { MatInputModule } from '@angular/material/input';
 
 
 
@@ -46,7 +48,6 @@ import { Page404Component } from '../pages/page404/page404.component';
     FooterComponent,
     SubCategoryComponent,
     CreatePostComponent,
-    ListPostComponent,
     EditCategoryComponent,
     EditSubCategoryComponent,
     UserProfileComponent,
@@ -74,7 +75,12 @@ import { Page404Component } from '../pages/page404/page404.component';
     MdbTabsModule,
     MdbTooltipModule,
     MdbValidationModule,
-    COMPONENT_ROUTING
+    COMPONENT_ROUTING,
+    MatFormFieldModule,
+    MatIconModule,
+    MatInputModule,
+  ],
+  providers:[
   ]
 })
 export class ComponentsModule { }
