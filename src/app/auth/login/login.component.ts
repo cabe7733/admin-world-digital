@@ -40,7 +40,7 @@ export class LoginComponent implements OnInit {
     const { email ,password } = form.value;
     this.services.login(email ,password).then(result=>{
       if (result ==true) {
-        this.router.navigate(['/component'])
+        this.router.navigate(['/component/home'])
       } else {
         this.router.navigate(['/login'])
       }

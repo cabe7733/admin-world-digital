@@ -1,143 +1,92 @@
-<div class="container">
-  <h1 class="h5 text-center py-5 mb-0">User profile</h1>
-  <section>
+<div class="container-fluid">
+  <h1 class="h5 text-center py-2 mb-0">User profile</h1>
+  <mat-spinner *ngIf="loadpage==true"></mat-spinner>
+  <section *ngIf="loadpage==false">
     <div class="row">
-      <div class="col-md-8 mb-4 mb-md-0">
+      <div class="col-md-9 mb-4 mb-md-0">
         <div class="card mb-4">
           <div class="card-header py-3">
             <strong>Edit profile</strong>
           </div>
           <div class="card-body text-center">
-            <div class="mb-3">
-              <strong>Profile photo</strong>
-            </div>
-            <form novalidate="" action="" class="ng-untouched ng-pristine ng-valid">
-              <div class="d-flex justify-content-center mb-4">
-                <div style="max-width: 300px;" class="file-upload-wrapper">
-                  <div class="file-upload has-preview">
-                    <div class="file-upload-message">
-                      <i class="fas fa-cloud-upload-alt file-upload-cloud-icon"></i>
-                      <p class="file-upload-default-message">Drag and drop a file here or click</p><!---->
-                    </div>
-                    <div class="file-upload-mask">
-
-                    </div><!---->
-                    <input type="file" class="file-upload-input">
-                    <div class="file-upload-previews"><!----><!----><!---->
-                      <div class="file-upload-preview ng-star-inserted">
-                        <span class="file-upload-render">
-                          <img class="file-upload-preview-img" src="https://mdbootstrap.com/img/new/avatars/1.jpg">
-                        </span>
-                        <div class="file-upload-preview-details">
-                          <button type="button" class="btn btn-danger file-upload-remove-file-btn ng-star-inserted"> Remove <i class="fa fa-trash-alt ms-1"></i></button>
-                          <div class="file-upload-details-container">
-                            <div class="file-upload-preview-details-inner">
-                              <p class="file-upload-file-name">1.jpg</p>
-                              <p class="file-upload-preview-message">Drag and drop or click to replace</p>
-                            </div>
-                          </div>
-                        </div>
-                      </div><!---->
-                    </div>
-                  </div>
+            <form [formGroup]="infoUser" *ngIf="infoUser" (submit)="editInfoUser(infoUser)">
+              <div class="row">
+                <div class="col-md-6">
+                  <mdb-form-control>
+                    <input mdbValidate mdbInput type="text" id="form1" class="form-control" formControlName="displayName" required/>
+                    <label mdbLabel class="form-label" for="form1">Name</label>
+                    <mdb-error *ngIf="displayName?.invalid && (displayName?.dirty || displayName?.touched)">required</mdb-error>
+                    <mdb-success *ngIf="displayName?.valid && (displayName?.dirty || displayName?.touched)"></mdb-success>
+                  </mdb-form-control>
+                </div>
+                <div class="col-md-6">
+                  <mdb-form-control>
+                    <input mdbValidate mdbInput type="url" id="form2" [value]="dataUser.photoURL" class="form-control" formControlName="photoURL" required/>
+                    <label mdbLabel class="form-label" for="form2">Photo Url</label>
+                    <mdb-error *ngIf="photoURL?.invalid && (photoURL?.dirty || photoURL?.touched)">required</mdb-error>
+                    <mdb-success *ngIf="photoURL?.valid && (photoURL?.dirty || photoURL?.touched)"></mdb-success>
+                  </mdb-form-control>
                 </div>
               </div>
-              <mdb-form-control class="mb-4 form-outline">
-                <input mdbinput="" type="text" id="formName" formcontrolname="name" class="form-control active ng-untouched ng-pristine ng-valid">
-                <label mdblabel="" for="formName" class="form-label" style="margin-left: 0px;">Name</label>
-                <div class="form-notch">
-                  <div class="form-notch-leading" style="width: 9px;">
-                  </div>
-                  <div class="form-notch-middle" style="width: 41.6px;">
-                  </div>
-                  <div class="form-notch-trailing">
-                  </div>
-                </div>
-              </mdb-form-control>
-              <mdb-form-control class="mb-4 form-outline">
-                <input mdbinput="" type="email" id="formEmail" formcontrolname="email" class="form-control active ng-untouched ng-pristine ng-valid">
-                <label mdblabel="" for="formEmail" class="form-label" style="margin-left: 0px;">Email</label>
-                <div class="form-notch"><div class="form-notch-leading" style="width: 9px;">
-                </div>
-                <div class="form-notch-middle" style="width: 39.2px;">
-                </div>
-                <div class="form-notch-trailing">
-                </div>
-                </div>
-              </mdb-form-control>
-              <mdb-form-control class="mb-4 form-outline">
-                <input mdbinput="" type="text" id="formPosition" formcontrolname="position" class="form-control active ng-untouched ng-pristine ng-valid">
-                <label mdblabel="" for="formName" class="form-label" style="margin-left: 0px;">Position</label>
-                <div class="form-notch">
-                  <div class="form-notch-leading" style="width: 9px;">
-                  </div>
-                  <div class="form-notch-middle" style="width: 54.4px;">
-                  </div>
-                  <div class="form-notch-trailing">
-                  </div>
-                </div>
-              </mdb-form-control>
-              <mdb-form-control class="mb-4 form-outline">
-                <textarea mdbinput="" id="formDescription" rows="4" formcontrolname="description" class="form-control active ng-untouched ng-pristine ng-valid">
-                </textarea>
-                <label mdblabel="" for="formDescription" class="form-label" style="margin-left: 0px;">Description</label>
-                <div class="form-notch">
-                  <div class="form-notch-leading" style="width: 9px;">
-                  </div>
-                  <div class="form-notch-middle" style="width: 72.8px;">
-                  </div>
-                  <div class="form-notch-trailing">
-                  </div>
-                </div>
-              </mdb-form-control>
-              <button type="button" class="btn btn-primary mb-2"> Update profile </button>
+              <button type="submit" class="btn btn-primary mt-3 float-end">editar</button>
             </form>
           </div>
         </div>
-        <div class="card">
+        <div class="card mb-4">
           <div class="card-header py-3">
-            <strong>Change password</strong>
+            <strong>Edit Email</strong>
           </div>
-          <div class="card-body text-center pt-4">
-            <form novalidate="" action="" class="ng-untouched ng-pristine ng-valid">
-              <mdb-form-control class="mb-4 form-outline">
-                <input mdbinput="" type="password" id="newPassword" class="form-control">
-                <label mdblabel="" for="newPassword" class="form-label" style="margin-left: 0px;">New password</label>
-                <div class="form-notch">
-                  <div class="form-notch-leading" style="width: 9px;">
-                  </div>
-                  <div class="form-notch-middle" style="width: 92.8px;">
-                  </div>
-                  <div class="form-notch-trailing">
-                  </div>
+          <div class="card-body text-center">
+            <form [formGroup]="emailUser" *ngIf="emailUser" (submit)="editEmailUser(emailUser)">
+              <div class="row">
+                <div class="col-md-12">
+                  <mdb-form-control>
+                    <input mdbValidate mdbInput type="email" id="form3" class="form-control" formControlName="email" required/>
+                    <label mdbLabel class="form-label" for="form3">Email</label>
+                    <mdb-error *ngIf="email?.invalid && (email?.dirty || email?.touched)">required</mdb-error>
+                    <mdb-success *ngIf="email?.valid && (email?.dirty || email?.touched)"></mdb-success>
+                  </mdb-form-control>
                 </div>
-              </mdb-form-control>
-              <mdb-form-control class="mb-4 form-outline">
-                <input mdbinput="" type="password" id="confirmPassword" class="form-control">
-                <label mdblabel="" for="confirmPassword" class="form-label" style="margin-left: 0px;">Confirm password</label>
-                <div class="form-notch">
-                  <div class="form-notch-leading" style="width: 9px;">
-                  </div>
-                  <div class="form-notch-middle" style="width: 112px;">
-                  </div>
-                  <div class="form-notch-trailing">
-                  </div>
+              </div>
+              <button type="submit" class="btn btn-primary mt-3 float-end">editar</button>
+            </form>
+          </div>
+        </div>
+        <div class="card mb-4">
+          <div class="card-header py-3">
+            <strong>Edit Password</strong>
+          </div>
+          <div class="card-body text-center">
+            <form [formGroup]="passwordUser" *ngIf="passwordUser" (submit)="editPass(passwordUser)">
+              <div class="row">
+                <div class="col-md-12">
+                  <mdb-form-control>
+                    <input mdbValidate mdbInput type="password" id="form4" class="form-control" formControlName="password" required/>
+                    <label mdbLabel class="form-label" for="form4">New Password</label>
+                    <mdb-error *ngIf="password?.invalid && (password?.dirty || password?.touched)">required</mdb-error>
+                    <mdb-success *ngIf="password?.valid && (password?.dirty || password?.touched)"></mdb-success>
+                  </mdb-form-control>
                 </div>
-              </mdb-form-control>
-              <button type="button" class="btn btn-primary mb-2">Apply</button>
+              </div>
+              <button type="submit" class="btn btn-primary mt-3 float-end">editar</button>
             </form>
           </div>
         </div>
       </div>
-      <div class="col-md-4 mb-4 mb-md-0">
+      <div class="col-md-3 mb-4 mb-md-0">
         <div class="card">
-          <div class="card-body text-center">
-            <img src="https://mdbootstrap.com/img/new/avatars/1.jpg" alt="avatar" class="rounded-circle shadow-1 mb-3" style="width: 150px;">
-            <p class="mb-1"><strong>John Doe</strong></p>
-            <p class="mb-2"><small>Founder</small></p>
-            <p class="mb-2 text-muted"> Lorem ipsum dolor sit, amet consectetur adipisicing elit. Quia deserunt pariatur voluptatem consequuntur! Aliquid, placeat nobis odit delectus ad est, nemo repudiandae possimus repellendus voluptas debitis, numquam modi asperiores beatae? </p>
+          <div class="card-body text-center" *ngIf="dataUser">
+            <img [src]="dataUser.photoURL" alt="avatar" class="rounded-circle shadow-2 mb-3" style="width: 142px;">
+            <p class="mb-1"><strong>{{dataUser.displayName}}</strong></p>
+            <p class="mb-2"><small>{{dataUser.email}}</small></p>
+            <p class="mb-2"><small>{{dataUser.phoneNumber}}</small></p>
+            <p class="mb-2"><small>{{dataUser.emailVerified}}</small></p>
+            <p class="mb-2"><small>{{dataUser.uid}}</small></p>
           </div>
         </div>
+      </div>
+      <div class="col-md-9 mb-4 mb-md-0">
+
       </div>
     </div>
   </section>

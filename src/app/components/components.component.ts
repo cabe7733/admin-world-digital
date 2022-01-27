@@ -11,6 +11,10 @@ export class ComponentsComponent implements OnInit {
   constructor(private services:AuthService) { }
 
   ngOnInit(): void {
+    this.infoUser();
+  }
+
+  infoUser(){
     this.services.getUsusario().then(user=>{
       console.log(user);
     })
