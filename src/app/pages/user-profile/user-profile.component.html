@@ -3,7 +3,7 @@
   <mat-spinner *ngIf="loadpage==true"></mat-spinner>
   <section *ngIf="loadpage==false">
     <div class="row">
-      <div class="col-md-9 mb-4 mb-md-0">
+      <div class="col-xl-9 col-md-12 mb-4 mb-md-0">
         <div class="card mb-4">
           <div class="card-header py-3">
             <strong>Edit profile</strong>
@@ -11,7 +11,7 @@
           <div class="card-body text-center">
             <form [formGroup]="infoUser" *ngIf="infoUser" (submit)="editInfoUser(infoUser)">
               <div class="row">
-                <div class="col-md-6">
+                <div class="col-md-6 mt-2">
                   <mdb-form-control>
                     <input mdbValidate mdbInput type="text" id="form1" class="form-control" formControlName="displayName" required/>
                     <label mdbLabel class="form-label" for="form1">Name</label>
@@ -19,7 +19,7 @@
                     <mdb-success *ngIf="displayName?.valid && (displayName?.dirty || displayName?.touched)"></mdb-success>
                   </mdb-form-control>
                 </div>
-                <div class="col-md-6">
+                <div class="col-md-6 mt-2">
                   <mdb-form-control>
                     <input mdbValidate mdbInput type="url" id="form2" [value]="dataUser.photoURL" class="form-control" formControlName="photoURL" required/>
                     <label mdbLabel class="form-label" for="form2">Photo Url</label>
@@ -73,7 +73,7 @@
           </div>
         </div>
       </div>
-      <div class="col-md-3 mb-4 mb-md-0">
+      <div class="col-xl-3 col-md-12 mb-4 mb-md-0">
         <div class="card">
           <div class="card-body text-center" *ngIf="dataUser">
             <img [src]="dataUser.photoURL" alt="avatar" class="rounded-circle shadow-2 mb-3" style="width: 142px;">
@@ -84,9 +84,6 @@
             <p class="mb-2"><small>{{dataUser.uid}}</small></p>
           </div>
         </div>
-      </div>
-      <div class="col-md-9 mb-4 mb-md-0">
-
       </div>
     </div>
   </section>

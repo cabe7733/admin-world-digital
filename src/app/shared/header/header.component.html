@@ -19,9 +19,10 @@
           <a class="nav-link" [routerLink]="'postBlog'">Post</a>
         </li>
       </ul>
-      <div class="navbar-text">
+      <div class="navbar-text" *ngIf="dataUser">
         <div mdbDropdown class="dropdown">
           <a class="" role="button" id="dropdownMenuLink" mdbDropdownToggle aria-expanded="false">
+            {{dataUser.email}}
             <i class="fas fa-user-circle fa-lg"></i>
             <i class="fas fa-caret-down ms-2"></i>
           </a>

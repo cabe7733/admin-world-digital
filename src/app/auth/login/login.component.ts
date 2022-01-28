@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { AbstractControl, FormControl, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { AuthService } from 'src/app/services/auth.service';
+import Swal from 'sweetalert2'
 
 @Component({
   selector: 'app-login',
@@ -24,7 +25,7 @@ export class LoginComponent implements OnInit {
 
     this.validationForm = new FormGroup({
       email: new FormControl(null, [Validators.required, Validators.email, Validators.pattern('[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,3}$')]),
-      password: new FormControl(null, [Validators.required]),
+      password: new FormControl(null, [Validators.required, Validators.minLength(6)]),
     });
   }
 
@@ -39,9 +40,17 @@ export class LoginComponent implements OnInit {
   login(form:FormGroup){
     const { email ,password } = form.value;
     this.services.login(email ,password).then(result=>{
+      console.log(result);
+
       if (result ==true) {
         this.router.navigate(['/component/home'])
       } else {
+        Swal.fire({
+          icon: 'error',
+          title: result.errorCode,
+          text: 'Intentelo de nuevo por favor',
+        })
+        form.reset();
         this.router.navigate(['/login'])
       }
     })

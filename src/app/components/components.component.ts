@@ -11,7 +11,13 @@ export class ComponentsComponent implements OnInit {
   constructor(private services:AuthService) { }
 
   ngOnInit(): void {
-    this.infoUser();
+    setTimeout(()=>{
+      this.infoUser();
+    }, 1000);
+
+    setTimeout(()=>{
+      this.services.logout();
+    }, 30000);
   }
 
   infoUser(){

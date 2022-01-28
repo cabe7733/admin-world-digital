@@ -9,9 +9,14 @@ import { Router } from '@angular/router';
 })
 export class HeaderComponent implements OnInit {
 
+  dataUser:any;
+
   constructor(private authservices:AuthService,private router:Router) { }
 
   ngOnInit(): void {
+    setTimeout(()=>{
+      this.dataInfoUser()
+    }, 1000);
   }
 
   myPerfil(){
@@ -21,6 +26,12 @@ export class HeaderComponent implements OnInit {
   logOut(){
     this.authservices.logout();
     this.router.navigate(['/login'])
+  }
+
+  dataInfoUser(){
+    this.authservices.getUsusario().then(result=>{
+      this.dataUser=result;
+    })
   }
 
 }
