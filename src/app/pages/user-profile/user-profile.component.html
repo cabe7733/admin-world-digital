@@ -3,7 +3,7 @@
   <mat-spinner *ngIf="loadpage==true"></mat-spinner>
   <section *ngIf="loadpage==false">
     <div class="row">
-      <div class="col-xl-9 col-md-12 mb-4 mb-md-0">
+      <div class="col-xl-9 col-lg-9 col-md-12 mb-4 mb-md-0">
         <div class="card mb-4">
           <div class="card-header py-3">
             <strong>Edit profile</strong>
@@ -72,15 +72,32 @@
             </form>
           </div>
         </div>
+        <div class="card mb-4" *ngIf="dataUser.emailVerified=='false';">
+          <div class="card-header py-3">
+            <strong>Verificar Usuario</strong>
+          </div>
+          <div class="card-body text-center d-grid gap-2">
+            <button class="btn btn-primary" (click)="verify()">
+              Verificar Usuario:  "{{dataUser.email}}"
+              <i class="fas fa-check-circle text-light me-2"></i>
+            </button>
+          </div>
+        </div>
       </div>
-      <div class="col-xl-3 col-md-12 mb-4 mb-md-0">
+      <div class="col-xl-3 col-lg-3 col-md-12 mb-4 mb-md-0">
         <div class="card">
           <div class="card-body text-center" *ngIf="dataUser">
             <img [src]="dataUser.photoURL" alt="avatar" class="rounded-circle shadow-2 mb-3" style="width: 142px;">
             <p class="mb-1"><strong>{{dataUser.displayName}}</strong></p>
             <p class="mb-2"><small>{{dataUser.email}}</small></p>
-            <p class="mb-2"><small>{{dataUser.phoneNumber}}</small></p>
-            <p class="mb-2"><small>{{dataUser.emailVerified}}</small></p>
+            <p class="mb-2">
+              <ng-container *ngIf="dataUser.emailVerified=='true'; else elseTemplate">
+                <a mdbTooltip="Usuario verificado"><i class="fas fa-check-circle text-primary"></i></a>
+              </ng-container>
+              <ng-template #elseTemplate>
+                <a mdbTooltip="Usuario no verificado"><i class="fas fa-ban text-danger" aria-label="usuario no verificado"></i></a>
+              </ng-template>
+            </p>
             <p class="mb-2"><small>{{dataUser.uid}}</small></p>
           </div>
         </div>

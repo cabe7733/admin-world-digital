@@ -19,8 +19,16 @@ export class UserProfileComponent implements OnInit {
 
   ngOnInit(): void {
 
+    this.dataUser={
+      displayName:sessionStorage.getItem('displayName'),
+      email:sessionStorage.getItem('email'),
+      photoURL:sessionStorage.getItem('photoURL'),
+      emailVerified:sessionStorage.getItem('emailVerified'),
+      uid:sessionStorage.getItem('uid'),
+    };
+
     setTimeout(()=>{
-      this.dataInfoUser()
+      this.loadpage = false;
     }, 1000);
 
     setTimeout(()=>{
@@ -58,28 +66,28 @@ export class UserProfileComponent implements OnInit {
   }
 
   editInfoUser(form:FormGroup){
-    this.authservices.editDataUser(form.value);
+    this.authservices.editDataUser(form.value)
     setTimeout(()=>{
-      this.dataInfoUser()
+      this.authservices.userInfo();
     }, 1000);
   }
 
   editEmailUser(form:FormGroup){
     this.authservices.editEmailUser(form.value)
     setTimeout(()=>{
-      this.dataInfoUser()
+      this.authservices.userInfo();
     }, 1000);
   }
 
   editPass(form:FormGroup){
-    console.log(form.value);
+    this.authservices.editPassword(form.value);
+    setTimeout(()=>{
+      this.authservices.userInfo();
+    }, 1000);
   }
 
-  dataInfoUser(){
-    this.authservices.getUsusario().then(result=>{
-      this.loadpage =false;
-      this.dataUser=result;
-    })
+  verify(){
+    this.authservices.verifyUser();
   }
 
-}//dataUser.emailVerified;
+}

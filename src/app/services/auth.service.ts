@@ -11,7 +11,7 @@ export class AuthService {
 
   async login(email,password){
 
-      let datalogin;
+      let datalogin:any;
 
       await signInWithEmailAndPassword(auth, email, password).then((userCredential) => {
           datalogin = true;
@@ -24,11 +24,27 @@ export class AuthService {
   }
 
   async getUsusario(){
-    let dataUser;
+    let dataUser:any;
     await onAuthStateChanged(auth, (user) => {
       dataUser = user;
     });
     return dataUser;
+  }
+
+  userInfo(){
+    const user = auth.currentUser;
+    if (user !== null) {
+      if (user.emailVerified) {
+        sessionStorage.setItem('emailVerified','true')
+      }else{
+        sessionStorage.setItem('emailVerified','false')
+      }
+      sessionStorage.setItem('displayName',user.displayName)
+      sessionStorage.setItem('email',user.email)
+      sessionStorage.setItem('photoURL',user.photoURL)
+      sessionStorage.setItem('uid',user.uid)
+    }
+    return user;
   }
 
   logout(){
@@ -37,27 +53,31 @@ export class AuthService {
     }).catch((error) => {
       console.log(error);
     });
+    sessionStorage.clear();
   }
 
 
   editDataUser(data){
+    let result;
     updateProfile(auth.currentUser, {
       displayName: data.displayName,
       photoURL: data.photoURL,
-    }).then(() => {
-      // Profile updated!
-      // ...
+    }).then(result=> {
+      result=result;
     }).catch((error) => {
-      console.log(error);
+      result=error
     });
+    return result;
   }
 
   editEmailUser(data){
+    let result;
     updateEmail(auth.currentUser, data.email).then(result => {
-      console.log(result);
+      result= result;
     }).catch((error) => {
-      console.log(error);
+      result=error;
     });
+    return result;
   }
 
   verifyUser(){
@@ -70,8 +90,6 @@ export class AuthService {
     const newPassword =data.password;
 
     updatePassword(user, newPassword).then(result => {
-      console.log(result);
-
     }).catch((error) => {
       console.log(error);
     });

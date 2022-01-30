@@ -14,9 +14,13 @@ export class HeaderComponent implements OnInit {
   constructor(private authservices:AuthService,private router:Router) { }
 
   ngOnInit(): void {
-    setTimeout(()=>{
-      this.dataInfoUser()
-    }, 1000);
+    this.dataUser={
+      displayName:sessionStorage.getItem('displayName'),
+      email:sessionStorage.getItem('email'),
+      photoURL:sessionStorage.getItem('photoURL'),
+      emailVerified:sessionStorage.getItem('emailVerified'),
+      uid:sessionStorage.getItem('uid'),
+    };
   }
 
   myPerfil(){
@@ -26,12 +30,6 @@ export class HeaderComponent implements OnInit {
   logOut(){
     this.authservices.logout();
     this.router.navigate(['/login'])
-  }
-
-  dataInfoUser(){
-    this.authservices.getUsusario().then(result=>{
-      this.dataUser=result;
-    })
   }
 
 }
